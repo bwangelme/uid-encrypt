@@ -1,7 +1,6 @@
 package crypto
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -71,7 +70,6 @@ func TestEncodeUID(t *testing.T) {
 					"位置 %d 的字符 %c 不是十六进制字符", i, c)
 			}
 
-			fmt.Println(got)
 			// 如果指定了期望值，检查前缀
 			if tt.expected != "" {
 				assert.True(t, len(got) >= len(tt.expected), "结果长度应该大于等于期望值长度")

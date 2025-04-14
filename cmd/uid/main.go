@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/bwangelme/uid-encrypt/internal/crypto"
+	"github.com/bwangelme/uid-encrypt/crypto"
 )
 
 func main() {

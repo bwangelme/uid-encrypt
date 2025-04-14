@@ -21,7 +21,7 @@ go get github.com/bwangelme/uid-encrypt
 ## 使用方法
 
 ```go
-import "github.com/bwangelme/uid-encrypt/internal/crypto"
+import "github.com/bwangelme/uid-encrypt/crypto"
 
 // 加密 UID 为字节序列
 uid := int64(12345)
@@ -90,8 +90,64 @@ if err != nil {
 ## 测试
 
 ```bash
-go test -v github.com/bwangelme/uid-encrypt/internal/crypto
+go test -v ./...
 ```
+
+## 性能测试结果
+
+在 AMD Ryzen 7 3700X 8-Core Processor 上运行的性能测试结果：
+
+### EncryptUID 函数
+
+| 测试用例 | 执行时间 | 内存分配 | 分配次数 |
+|---------|---------|---------|---------|
+| 正数    | 3336 ns/op | 384 B/op | 16 allocs/op |
+| 负数    | 3399 ns/op | 384 B/op | 16 allocs/op |
+| 零      | 3251 ns/op | 384 B/op | 16 allocs/op |
+| 大数    | 3248 ns/op | 384 B/op | 16 allocs/op |
+| 大负数  | 3322 ns/op | 384 B/op | 16 allocs/op |
+
+### EncodeUID 函数
+
+| 测试用例 | 执行时间 | 内存分配 | 分配次数 |
+|---------|---------|---------|---------|
+| 正数    | 3564 ns/op | 448 B/op | 18 allocs/op |
+| 负数    | 3625 ns/op | 448 B/op | 18 allocs/op |
+| 零      | 3332 ns/op | 448 B/op | 18 allocs/op |
+| 大数    | 3498 ns/op | 448 B/op | 18 allocs/op |
+| 大负数  | 3619 ns/op | 448 B/op | 18 allocs/op |
+
+### DecryptUID 函数
+
+| 测试用例 | 执行时间 | 内存分配 | 分配次数 |
+|---------|---------|---------|---------|
+| 正数    | 3635 ns/op | 440 B/op | 18 allocs/op |
+| 负数    | 3642 ns/op | 440 B/op | 19 allocs/op |
+| 零      | 3358 ns/op | 424 B/op | 15 allocs/op |
+| 大数    | 3567 ns/op | 440 B/op | 19 allocs/op |
+| 大负数  | 3505 ns/op | 440 B/op | 19 allocs/op |
+
+### DecodeUID 函数
+
+| 测试用例 | 执行时间 | 内存分配 | 分配次数 |
+|---------|---------|---------|---------|
+| 正数    | 3622 ns/op | 456 B/op | 19 allocs/op |
+| 负数    | 3741 ns/op | 456 B/op | 20 allocs/op |
+| 零      | 3695 ns/op | 440 B/op | 16 allocs/op |
+| 大数    | 3769 ns/op | 456 B/op | 20 allocs/op |
+| 大负数  | 3626 ns/op | 456 B/op | 20 allocs/op |
+
+性能测试命令：
+
+```bash
+make bench
+```
+
+## 注意事项
+
+- 加密结果是一个十六进制字符串
+- 支持的范围是 int64 的所有值
+- 加密和解密操作都是对称的，同一个 UID 每次加密的结果都相同
 
 ## 许可证
 
