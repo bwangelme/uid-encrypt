@@ -2,6 +2,9 @@
 /uid
 cmd/uid/uid
 
+# 构建目录
+/build/
+
 # IDE 相关
 .idea/
 .vscode/
